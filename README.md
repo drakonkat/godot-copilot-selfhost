@@ -1,30 +1,31 @@
-# Godot Copilot
+# Godot Copilot Selfhost (Based on https://github.com/minosvasilias/godot-copilot)
 
-![Godot Copilot logo and shader designed and written by GPT-4](public_assets/copilot_logo.png)
+![Godot Copilot Selfhost logo](public_assets/logo500.png)
 
 AI-assisted development for the Godot engine.
 
-Compatible with `4.x` and `3.x`.
+Compatible with `4.x`.
 
 ### What does this do?
 
-Godot Copilot uses OpenAI APIs (other models/providers may be supported in the future) to retrieve AI-generated code completions.
+Godot Copilot uses OpenAI APIs and the API of LM Studio to run models locally (other models/providers may be supported in the future) to retrieve AI-generated code completions.
 
 After installing the plugin, simply press the selected keyboard shortcut to generate code in the code editor at the current caret position, directly within the engine!
 
 ### How do i install this?
 
-- Search for "Copilot" in the Godot asset library directly within the engine. Download the addon and enable in the project settings.
-- Alternatively, navigate to the [releases page](https://github.com/minosvasilias/godot-copilot/releases) and follow the instructions for the latest one
-- You may also clone this repository and copy the `copilot` addon into the `res://addons` directory of your project
+- Search for "Copilot selfhost" in the Godot asset library directly within the engine. Download the addon and enable in the project settings.
+- You may also clone this repository and copy the `copilot-advanced` addon into the `res://addons` directory of your project
 
-Afterwards, enable the addon in the project settings, and enter your OpenAI API key in the `Copilot` tab located on the right-hand dock.
+Afterwards, enable the addon in the project settings, and enter your OpenAI API key in the `Copilot selfhost` tab located on the right-hand dock.
 
 Use the selected keyboard shortcut within the code editor to request completions.
 
 ### How much will this cost me?
 
-Godot Copilot currently supports three different models:
+Nothing if you install LM studio and configure a server to run the models yourself, otherwise, you will need to pay OpenAI for the completions.
+
+Godot Copilot selfhost currently supports this paid models:
 
 - `text-davinci-003` (Completion interface)
   - $0.02 / 1K tokens
@@ -40,15 +41,6 @@ For each request, Copilot will attempt to send your entire current script to the
 Being a good engineer that doesn't work in 5k-line spaghetti-scripts pays. Literally!
 
 > Comprehensive example data on cost per month/day/hour for each model is appreciated! Please open an issue if you are willing to contribute!
-
-### Completion interface? Chat interface?
-
-OpenAI uses different API interfaces for different models.
-
-- Completion Interface (`text-davinci-003`)
-  - Here, the model is simply given a prompt string and a suffix string, and will generate tokens it believes will fit between the two. Tailor-made for code completion!
-- Chat Interface (`gpt-3.5-turbo`, `gpt-4`)
-  - This is an abstraction layer categorizing prompts and completions as "messages", as you'd see in ChatGPT for example. Therefore, we need specific instructions to ask the model to INSERT code into a specific location. Both turbo and gpt-4 are smart enough to reliably follow these instructions, but they may sometimes result in missing spaces or indentation at the beginning of completions.
 
 ### How well does this work?
 
@@ -76,11 +68,9 @@ Autocomplete may be an optional setting in the future if above issues can be suf
 
 ### Does this share sensitive data?
 
-Your code will be sent to OpenAIs API endpoints. Since March 1st 2023, OpenAI states it will [no longer use data sent via their APIs in future training runs](https://openai.com/policies/api-data-usage-policies).
+If you use LM Studio, no data is shared with any third party, everything is processed locally.
 
-### Does this work with 3.x?
-
-Yes! Please switch to the `3.x` branch for the appropriate version of this addon.
+If you use Open AI subscription you will find here the detail -> Since March 1st 2023, OpenAI states it will [no longer use data sent via their APIs in future training runs](https://openai.com/policies/api-data-usage-policies).
 
 ### Why should i use this over Github Copilot?
 
@@ -90,18 +80,6 @@ This does offer code completions directly within the Godot editor, which is the 
 
 When using OpenAIs APIs, Godot Copilot may also be more expensive than GitHub Copilot, depending on your model choice and usage.
 
-#### Can i use my existing GitHub Copilot subscription?
-
-Yes, this is now supported. (for the 4.x version of this plugin only, for now)
-
-**However, use at your own risk!**
-
-GitHub Copilot usage outside of the indended scope may lead to account suspensions. This plugin makes sure to mirror authentic VsCode plugin requests, including session handling and authentication, but please be aware of the GitHub Copilot terms of service before using.
-
-To extract your existing GitHub Copilot token for use with Godot Copilot, please follow the instructions in the `copilot-gpt4-service` repo here: [Obtaining Copilot Token](https://gitlab.com/aaamoon/copilot-gpt4-service?tab=readme-ov-file#obtaining-copilot-token).
-
-You may then select the `gpt-4-github-copilot` model after installing this plugin.
-
 ### Can this do anything other than code completion?
 
 I have run experiments with further automation capabilities, such as populating and modifying the active scene. Such features may be added in the future.
@@ -109,3 +87,12 @@ I have run experiments with further automation capabilities, such as populating 
 Other interesting usecases may be using embeddings to more accurately model cross-script functionality for your codebase, or using generative models for texture, sprite or 3D asset creation.
 
 Please feel free to open issues requesting features or changes.
+
+### Which models are suggested?
+
+Actually there is no suggested model, llama 3 is a good one, but if someone has a better suggestion, please open an issue.
+
+
+### Exist a guide to install LM Studio?
+
+ Actually not, is in project to create a guide to install LM Studio, but if you want to help, please open an issue.

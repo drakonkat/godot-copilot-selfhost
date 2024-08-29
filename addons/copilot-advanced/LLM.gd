@@ -2,6 +2,7 @@
 extends Node
 
 var model
+var custom_model_text
 var api_key
 var allow_multiline
 
@@ -15,6 +16,10 @@ func _get_models():
 #Sets active model
 func _set_model(model_name):
 	model = model_name
+
+
+func _set_custom_model_text(text):
+	custom_model_text = text
 
 #Sets API key
 func _set_api_key(key):

@@ -1,5 +1,5 @@
 @tool
-extends "res://addons/copilot/LLM.gd"
+extends "res://addons/copilot-advanced/LLM.gd"
 
 const URL = "https://api.githubcopilot.com/chat/completions"
 const AUTH_URL = "https://api.github.com/copilot_internal/v2/token"

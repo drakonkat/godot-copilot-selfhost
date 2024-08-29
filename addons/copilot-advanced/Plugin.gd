@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 const version = "1.0.0"
-const scene_path = "res://addons/copilot/CopilotUI.tscn"
+const scene_path = "res://addons/copilot-advanced/CopilotUI.tscn"
 
 var dock
 var editor_interface = get_editor_interface()

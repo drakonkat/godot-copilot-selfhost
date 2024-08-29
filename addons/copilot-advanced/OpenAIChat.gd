@@ -1,8 +1,8 @@
 @tool
-extends "res://addons/copilot/LLM.gd"
+extends "res://addons/copilot-advanced/LLM.gd"
 
-const URL = "https://api.openai.com/v1/chat/completions"
-const SYSTEM_TEMPLATE = """You are a brilliant coding assistant for the game-engine Godot. The version used is Godot 4.0, and all code must be valid GDScript!
+const URL = "http://localhost:1234/v1/chat/completions"
+const SYSTEM_TEMPLATE = """You are a brilliant coding assistant for the game-engine Godot. The version used is Godot 4.2, and all code must be valid GDScript!
 That means the new GDScript 2.0 syntax is used. Here's a couple of important changes that were introduced:
 - Use @export annotation for exports
 - Use Node3D instead of Spatial, and position instead of translation
@@ -108,3 +108,4 @@ func on_request_completed(result, response_code, headers, body, pre, post, http_
 	if is_instance_valid(http_request):
 		http_request.queue_free()
 	emit_signal("completion_received", completion.content, pre, post)
+

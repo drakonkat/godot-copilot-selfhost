@@ -1,7 +1,7 @@
 @tool
-extends "res://addons/copilot/LLM.gd"
+extends "res://addons/copilot-advanced/LLM.gd"
 
-const URL = "https://api.openai.com/v1/completions"
+@onready var URL = $"../../VBoxParent/ModelSetting3/URL".text
 const PROMPT_PREFIX = """#This is a GDScript script using Godot 4.0. 
 #That means the new GDScript 2.0 syntax is used. Here's a couple of important changes that were introduced:
 #- Use @export annotation for exports
@@ -12,16 +12,15 @@ const PROMPT_PREFIX = """#This is a GDScript script using Godot 4.0.
 #- Use rad_to_deg instead of rad2deg
 #- Use PackedByteArray instead of PoolByteArray
 #- Use instantiate instead of instance
-#- You can't use enumerate(OBJECT). Instead, use "for i in len(OBJECT):" 
+#- You can't use enumerate(OBJECT). Instead, use "for i in len(OBJECT):"
 #
 #Remember, this is not Python. It's GDScript for use in Godot.
-
-
 """
-const MAX_LENGTH = 8500
+const MAX_LENGTH = 15000
 
 func _get_models():
 	return [
+		"custom",
 		"text-davinci-003"
 	]
 
@@ -42,8 +41,11 @@ func get_completion(_prompt, _suffix):
 		else:
 			prompt = prompt.substr(diff - suffix.length())
 			suffix = ""
+	var calculated_model = model
+	if model == "custom":
+		calculated_model = custom_model_text	
 	var body = {
-		"model": model,
+		"model": calculated_model,
 		"prompt": PROMPT_PREFIX + prompt,
 		"suffix": suffix,
 		"temperature": 0.7,
@@ -51,8 +53,7 @@ func get_completion(_prompt, _suffix):
 		"stop": "\n\n" if allow_multiline else "\n" 
 	}
 	var headers = [
-		"Content-Type: application/json",
-		"Authorization: Bearer %s" % api_key
+		"Content-Type: application/json"
 	]
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
@@ -74,3 +75,18 @@ func on_request_completed(result, response_code, headers, body, pre, post, http_
 	if is_instance_valid(http_request):
 		http_request.queue_free()
 	emit_signal("completion_received", completion, pre, post)
+
+func _on_url_text_changed(new_text):
+	URL = new_text
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,6 +12,8 @@ extends Control
 @onready var openai_key_input = $VBoxParent/OpenAiSetting/OpenAiKey
 @onready var version_label = $Version
 @onready var info = $VBoxParent/Info
+@onready var custom_model: BoxContainer = $VBoxParent/ModelSetting2
+@onready var urlTextInput: LineEdit = $VBoxParent/ModelSetting3/URL
 
 @export var icon_shader : ShaderMaterial
 @export var highlight_color : Color
@@ -26,11 +28,13 @@ var indicator = null
 var models = {}
 var openai_api_key
 var cur_model
+var custom_model_text
 var cur_shortcut_modifier = "Control" if is_mac() else "Alt"
 var cur_shortcut_key = "C"
 var allow_multiline = true
+var URL = "https://api.openai.com/v1/completions"
 
-const PREFERENCES_STORAGE_NAME = "user://copilot.cfg"
+const PREFERENCES_STORAGE_NAME = "user://copilot-advanced.cfg"
 const PREFERENCES_PASS = "F4fv2Jxpasp20VS5VSp2Yp2v9aNVJ21aRK"
 const GITHUB_COPILOT_DISCLAIMER = "Use GitHub Copilot keys at your own risk. Retrieve key by following instructions [url=https://gitlab.com/aaamoon/copilot-gpt4-service?tab=readme-ov-file#obtaining-copilot-token]here[/url]."
 
@@ -253,6 +257,7 @@ func get_llm():
 	var llm = get_node(models[cur_model])
 	llm._set_api_key(openai_api_key)
 	llm._set_model(cur_model)
+	llm._set_custom_model_text(custom_model_text)
 	llm._set_multiline(allow_multiline)
 	return llm
 
@@ -275,6 +280,13 @@ func set_model(model_name):
 	else:
 		openai_key_title.text = "OpenAI API Key"
 		info.hide()
+
+func _set_custom_model_text(text):
+	custom_model_text = text
+
+func _set_url(url):
+	URL = url
+
 
 func set_shortcut_modifier(modifier):
 	#Apply selected shortcut modifier
@@ -306,8 +318,12 @@ func _on_open_ai_key_changed(key):
 	#Apply setting and store in config file
 	set_openai_api_key(key)
 	store_config()
+	
+	
 
 func _on_model_selected(index):
+	#Make the custom model text visible
+	custom_model.visible = model_select.get_item_text(index) == "custom";
 	#Apply setting and store in config file
 	set_model(model_select.get_item_text(index))
 	store_config()
@@ -331,10 +347,12 @@ func store_config():
 	#Store current setting in config file
 	var config = ConfigFile.new()
 	config.set_value("preferences", "model", cur_model)
+	config.set_value("preferences", "custom_model_text", custom_model_text)
 	config.set_value("preferences", "shortcut_modifier", cur_shortcut_modifier)
 	config.set_value("preferences", "shortcut_key", cur_shortcut_key)
 	config.set_value("preferences", "allow_multiline", allow_multiline)
 	config.set_value("keys", "openai", openai_api_key)
+	config.set_value("preferences", "url", URL)
 	config.save_encrypted_pass(PREFERENCES_STORAGE_NAME, PREFERENCES_PASS)
 
 func load_config():
@@ -353,6 +371,10 @@ func load_config():
 	multiline_toggle.set_pressed_no_signal(allow_multiline)
 	openai_api_key = config.get_value("keys", "openai", "")
 	openai_key_input.text = openai_api_key
+	_set_custom_model_text(config.get_value("preferences", "custom_model_text", custom_model_text))
+	_set_url(config.get_value("preferences", "url", URL))
+	urlTextInput.text = URL
+	custom_model.get_node("%CustomModel").text = custom_model_text
 
 func apply_by_value(option_button, value):
 	#Select item for option button based on value instead of index
@@ -366,3 +388,14 @@ func set_version(version):
 
 func on_info_meta_clicked(meta):
 	OS.shell_open(meta)
+
+
+func _on_custom_model_text_changed(new_text):
+	_set_custom_model_text(new_text)
+	store_config()
+
+func _on_url_text_changed(new_text):
+	_set_url(new_text)
+	store_config()
+
+

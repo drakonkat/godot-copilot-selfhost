@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://rv5dl08lcb8e"]
 
-[ext_resource type="Script" path="res://addons/copilot/Copilot.gd" id="1_pq1gj"]
-[ext_resource type="Script" path="res://addons/copilot/OpenAIChat.gd" id="2"]
-[ext_resource type="Material" uid="uid://cccmbprav6vgu" path="res://addons/copilot/small_icon.tres" id="2_gdw4j"]
-[ext_resource type="Script" path="res://addons/copilot/OpenAICompletion.gd" id="3_loa2x"]
-[ext_resource type="Material" uid="uid://bl1rtf743e4l3" path="res://addons/copilot/large_icon.tres" id="3_xn70b"]
-[ext_resource type="Script" path="res://addons/copilot/GithubCopilot.gd" id="6_hmh8w"]
+[ext_resource type="Script" path="res://addons/copilot-advanced/Copilot.gd" id="1_pq1gj"]
+[ext_resource type="Script" path="res://addons/copilot-advanced/OpenAIChat.gd" id="2"]
+[ext_resource type="Material" uid="uid://cccmbprav6vgu" path="res://addons/copilot-advanced/small_icon.tres" id="2_gdw4j"]
+[ext_resource type="Script" path="res://addons/copilot-advanced/OpenAICompletion.gd" id="3_loa2x"]
+[ext_resource type="Material" uid="uid://bl1rtf743e4l3" path="res://addons/copilot-advanced/large_icon.tres" id="3_xn70b"]
+[ext_resource type="Script" path="res://addons/copilot-advanced/GithubCopilot.gd" id="6_hmh8w"]
 
 [node name="Copilot" type="Control"]
 layout_mode = 3
@@ -70,6 +70,30 @@ text = "Settings"
 [node name="Separator2" type="HSeparator" parent="VBoxParent"]
 layout_mode = 2
 
+[node name="ModelSetting3" type="HBoxContainer" parent="VBoxParent"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxParent/ModelSetting3"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "URL"
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxParent/ModelSetting3"]
+layout_mode = 2
+
+[node name="URL" type="LineEdit" parent="VBoxParent/ModelSetting3"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "https://api.openai.com/v1/completions"
+placeholder_text = "https://api.openai.com/v1/completions"
+expand_to_text_length = true
+
 [node name="OpenAiSetting" type="HBoxContainer" parent="VBoxParent"]
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
 layout_mode = 2
@@ -113,15 +137,44 @@ layout_mode = 2
 [node name="Model" type="OptionButton" parent="VBoxParent/ModelSetting"]
 layout_mode = 2
 size_flags_horizontal = 10
-item_count = 3
-selected = 1
+item_count = 5
+selected = 0
 fit_to_longest_item = false
-popup/item_0/text = "text-davinci-003"
+popup/item_0/text = "custom"
 popup/item_0/id = 0
-popup/item_1/text = "gpt-3.5-turbo"
+popup/item_1/text = "text-davinci-003"
 popup/item_1/id = 1
-popup/item_2/text = "gpt-4"
+popup/item_2/text = "gpt-3.5-turbo"
 popup/item_2/id = 2
+popup/item_3/text = "gpt-4"
+popup/item_3/id = 3
+popup/item_4/text = "gpt-4-github-copilot"
+popup/item_4/id = 4
+
+[node name="ModelSetting2" type="HBoxContainer" parent="VBoxParent"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxParent/ModelSetting2"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Custom model"
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxParent/ModelSetting2"]
+layout_mode = 2
+
+[node name="CustomModel" type="LineEdit" parent="VBoxParent/ModelSetting2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "custom"
+placeholder_text = "Custom model"
+expand_to_text_length = true
 
 [node name="ShortcutSetting" type="HBoxContainer" parent="VBoxParent"]
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
@@ -146,22 +199,20 @@ size_flags_horizontal = 10
 [node name="Modifier" type="OptionButton" parent="VBoxParent/ShortcutSetting/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-item_count = 4
-selected = 2
-popup/item_0/text = "Cmd"
+item_count = 3
+selected = 0
+popup/item_0/text = "Alt"
 popup/item_0/id = 0
-popup/item_1/text = "Option"
+popup/item_1/text = "Ctrl"
 popup/item_1/id = 1
-popup/item_2/text = "Control"
+popup/item_2/text = "Shift"
 popup/item_2/id = 2
-popup/item_3/text = "Shift"
-popup/item_3/id = 3
 
 [node name="Key" type="OptionButton" parent="VBoxParent/ShortcutSetting/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 item_count = 32
-selected = 2
+selected = 0
 popup/item_0/text = "A"
 popup/item_0/id = 0
 popup/item_1/text = "B"
@@ -251,6 +302,7 @@ button_pressed = true
 text = "Enabled"
 
 [node name="Info" type="RichTextLabel" parent="VBoxParent"]
+visible = false
 layout_mode = 2
 focus_mode = 2
 fit_content = true
@@ -279,8 +331,11 @@ grow_vertical = 0
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[connection signal="text_changed" from="VBoxParent/ModelSetting3/URL" to="." method="_on_url_text_changed"]
+[connection signal="text_changed" from="VBoxParent/ModelSetting3/URL" to="LLMs/OpenAICompletion" method="_on_url_text_changed"]
 [connection signal="text_changed" from="VBoxParent/OpenAiSetting/OpenAiKey" to="." method="_on_open_ai_key_changed"]
 [connection signal="item_selected" from="VBoxParent/ModelSetting/Model" to="." method="_on_model_selected"]
+[connection signal="text_changed" from="VBoxParent/ModelSetting2/CustomModel" to="." method="_on_custom_model_text_changed"]
 [connection signal="item_selected" from="VBoxParent/ShortcutSetting/HBoxContainer/Modifier" to="." method="_on_shortcut_modifier_selected"]
 [connection signal="item_selected" from="VBoxParent/ShortcutSetting/HBoxContainer/Key" to="." method="_on_shortcut_key_selected"]
 [connection signal="toggled" from="VBoxParent/MultilineSetting/Multiline" to="." method="_on_multiline_toggled"]
