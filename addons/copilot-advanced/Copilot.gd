@@ -375,6 +375,7 @@ func load_config():
 	_set_url(config.get_value("preferences", "url", URL))
 	urlTextInput.text = URL
 	custom_model.get_node("%CustomModel").text = custom_model_text
+	
 
 func apply_by_value(option_button, value):
 	#Select item for option button based on value instead of index
