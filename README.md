@@ -5,25 +5,34 @@
 AI-assisted development for the Godot engine.
 
 Compatible with `4.x`.
-
 ### What does this do?
 
 Godot Copilot uses OpenAI APIs and the API of LM Studio to run models locally (other models/providers may be supported in the future) to retrieve AI-generated code completions.
 
 After installing the plugin, simply press the selected keyboard shortcut to generate code in the code editor at the current caret position, directly within the engine!
 
+### Check out my profile and the tutorial page for more information!
+
+- [Profile](https://tnl.one/s/drakonkat)
+- [Tutorial](https://tnl.one/s/gdcopilot)
+
+
 ### How do i install this?
 
-- Search for "Copilot selfhost" in the Godot asset library directly within the engine. Download the addon and enable in the project settings.
+Follow these steps:
+- Search for "Copilot selfhost" in the Godot asset library directly within the engine. Download the addon and enable in the project settings. (To be added)
 - You may also clone this repository and copy the `copilot-advanced` addon into the `res://addons` directory of your project
 
 Afterwards, enable the addon in the project settings, and enter your OpenAI API key in the `Copilot selfhost` tab located on the right-hand dock.
 
 Use the selected keyboard shortcut within the code editor to request completions.
 
+If you have difficulties, please follow the [tutorial](https://tnl.one/s/gdcopilot) linked above or open an [issue](https://github.com/drakonkat/godot-copilot-selfhost/issues).
+
 ### How much will this cost me?
 
-Nothing if you install LM studio and configure a server to run the models yourself, otherwise, you will need to pay OpenAI for the completions.
+- Nothing if you [install](https://lmstudio.ai/) `LM studio` and configure a server to run the models yourself, otherwise, you will need to pay OpenAI for the completions.
+  - FREE
 
 Godot Copilot selfhost currently supports this paid models:
 
